@@ -3,7 +3,7 @@ import './App.css';
 import Vault from './components/vault';
 import dummyEmotes from './components/dummyemotes'; 
 import Foundry from './components/foundry'; 
-
+import Forge from './components/forge';
 
 
 function App() {
@@ -17,18 +17,22 @@ function App() {
   const renderConsoleContent = () => {
     if (selectedContent === 'Foundry') {
       return(
-        <div class="console-box">
-          <Foundry></Foundry>
+        <div className="console-box">
+          <h1>Foundry</h1>
+          <Foundry emotes={dummyEmotes} />
         </div>
       );
     } else if (selectedContent === 'Forge') {
       return (
-        <p>its the FORGE</p>
+        <div class="console-box">
+          <h1>Forge</h1>
+          <Forge></Forge>
+        </div>
       );
     } else if (selectedContent === 'Vault') {
       return (
         <div class="console-box">
-        <h1>Emote Vault</h1>
+        <h1>Vault</h1>
         <Vault emotes={dummyEmotes} />
       </div>
       );

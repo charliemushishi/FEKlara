@@ -1,0 +1,10 @@
+.Vault-Board {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(4,1fr);
+    max-width: 100%;
+    max-height: 400px;
+    border: 2px solid red;
+    overflow: auto;
+}
+

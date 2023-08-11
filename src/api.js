@@ -18,3 +18,4 @@ export const uploadImage = async (file) => {
         throw error; // Handle errors or return specific error messages
     }
 };
+
