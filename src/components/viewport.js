@@ -41,7 +41,17 @@ const Viewport = () => {
             {currentEmote && currentEmote.emote ? (
         <div>
             <p>{currentEmote.emote.title}</p>
-            <p>{currentEmote.emote.image}</p>
+
+                {(() =>
+            {switch(true) {
+                
+                case currentEmote.emote.image.indexOf("http") === 0:
+                return <img src={currentEmote.emote.image} alt={currentEmote.emote.description} />;
+                default:
+                return <p>{currentEmote.emote.image}</p>;
+                }
+            })()}
+        
             <p>{currentEmote.emote.description}</p>
         </div>
     ) : (

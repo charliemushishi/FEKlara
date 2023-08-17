@@ -38,7 +38,7 @@ const Forge = ({updateEmotes, updateFoundryEmotes}) => {
             description: description
         }
         try {
-            const formEmoteData = {};
+            // const formEmoteData = {};
             if (selectedFile) {
                 formEmoteData['image'] = selectedFile;
             }
@@ -75,25 +75,18 @@ const Forge = ({updateEmotes, updateFoundryEmotes}) => {
         }
     };
     
-    
 
                 
-                        // <EmoteCard className="thecard" emote= {(() => {
-                        //     switch("") {
-                        //         case title || asciiEmote || uploadedImage || description :
-                        //         return { title, image: asciiEmote || uploadedImage, description } 
-                        //         case title || asciiEmote || uploadedImage || description :
-                        //         return { title, image: asciiEmote || uploadedImage, description } 
-                        //         default:
-                        //         return null
-                        //     }
-                        //     })()} />
         
     return (
         <div className="emote-upload-form">
                     <div className='preview-box'>
                         {/* <EmoteCard className="thecard" emote={title || asciiEmote || uploadedImage || description ? { title, image: asciiEmote || uploadedImage, description } : { title: "title", image: "OwO", description:"the preview" }}  /> */}
                         <EmoteCard className="thecard" emote={{title: title || "title", image: asciiEmote || "OwO" , description: description || "the preview"}}  />
+
+
+
+
                     </div>
 
                 <div className='form-inputs'>  

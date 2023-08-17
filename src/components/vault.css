@@ -192,8 +192,12 @@ ul {
 }
 
 .selectedEmoteDisplay p {
-    font-size:20px ;
+    font-size:100%;
     text-align: center;
+}
+
+.selectedEmoteDisplay img {
+    width: 75%;
 }
 
 .noresponse {

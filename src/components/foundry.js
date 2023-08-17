@@ -27,24 +27,25 @@ const handleEmoteClick = async (emote) => {
 
 
 
-
 return (
     <div className="foundry">
     <div className="display-area">
-        {selectedEmote ? (
-            
-        // <img src={selectedEmote.image} alt={selectedEmote.description} />
-        <p>{selectedEmote.image}</p>
-        ):( 
-        <p className="emote-placeholder">Choose emote</p>
-        )}
-
+    {((selectedEmote) =>
+        {switch(true) {
+            case selectedEmote === null :
+            return <p className="emote-placeholder">Choose emote</p>;
+            case selectedEmote.image.indexOf("http") === 0:
+            return <img src={selectedEmote.image} alt={selectedEmote.description} />;
+            default:
+            return <p>{selectedEmote.image}</p>;
+            }
+        })(selectedEmote)}
+    
     </div>
     <div className="emote-grid">
         {emotes.map((emote) => (
             
         <button
-            
             key={emote.id}
             className="emote-button"
             onClick={() => handleEmoteClick(emote)}

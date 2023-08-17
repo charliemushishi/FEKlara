@@ -35,7 +35,7 @@ const Vault = ({ emotes, updateEmotes }) => {
                 setSelectedEmoteId(null);
                 setShowConfirmation(false);
                 updateEmotes();
-                addNotification('Emote deleted succesfully')
+                addNotification('Emote deleted succesfully', 'success')
             } catch (error) {
                 console.error('Error deleting emote:', error);
                 addNotification('Emote could not be deleted')
@@ -143,7 +143,20 @@ const Vault = ({ emotes, updateEmotes }) => {
             <div className='response-box'> 
                 {selectedEmoteId !== null && (
                 <div className="Delete-Prompt">
-                    <div className='selectedEmoteDisplay'>{selectedEmote}</div>
+
+
+                <div className='selectedEmoteDisplay'>
+                {(() =>
+                    {switch(true) {
+                        
+                        case selectedEmote.indexOf("http") === 0:
+                        return <img src={selectedEmote} alt={selectedEmote} />;
+                        default:
+                        return <p>{selectedEmote}</p>;
+                        }
+                    })()}
+                </div>
+
                     <p>selected emote: {selectedEmoteTitle}</p>
                     {showConfirmation ? (
                     <div className='responseMessage'>

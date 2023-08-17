@@ -17,15 +17,6 @@ function App() {
   const [notifications, setNotifications] = useState([]); // Initialize notifications state
   
 
-  const addNotification = (message, type) => {
-    const newNotification = {
-      message,
-      type,
-      timestamp: new Date().getTime(),
-    };
-    setNotifications([...notifications, newNotification]);
-  };
-
   const updateEmotes = async () => {
     try {
       const updatedEmotes = await fetchEmotes();
