@@ -1,10 +1,249 @@
-.Vault-Board {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(4,1fr);
-    max-width: 100%;
-    max-height: 400px;
-    border: 2px solid red;
-    overflow: auto;
+
+.responseButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
+.responseMessage{
+    grid-area: 1 / 2 / 2 / 3; 
+}
+
+.response-box button {
+    width : 50%;
+    height : 50% ;
+    letter-spacing : 2px ;
+    border-radius : 5px ;
+    border : solid 2px white;
+    background-color: #c1cbc0;
+    color: #485359;
+}
+
+.Delete-Prompt{
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    position:relative;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.response-box p {
+    font-size: 1em;
+    color: #c1cbc0;
+    text-align: center;
+}
+
+.vault-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.response-box {
+    width: 75%;
+    height: 50%;
+    margin-bottom: 10px;
+}
+
+.responseFields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.responseFields input {
+    width: 90%;
+    height: 30px;
+    box-shadow: #485359;
+    
+}
+
+.input-field {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.input-field input {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #c1cbc0;
+    outline: 0;
+    font-size: 1.3rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+
+.input-field:focus input{
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    font-weight:700;    
+    padding-bottom: 6px;  
+    font-weight: 700;
+    border-width: 3px;
+    border-image-slice: 1;
+}
+
+.input-field ::placeholder {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #c1cbc0;
+}
+
+/* dropdown */
+
+.selected-option {
+    background-color: #c1cbc0;
+    color: #485359;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.selected-option::after {
+    content: "\25BC"; 
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 12px;
+}
+
+.custom-dropdown {
+    color:#485359;
+    position: relative;
+    display: inline-block;
+    width:38%
+}
+
+.custom-dropdown:hover {
+    display: block;
+}
+
+.options {
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+
+.options:hover li{
+    border-radius: 5px;
+    background-color: #ddd;
+}
+.options li{
+    color: #485359;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    list-style: none;
+    border-bottom: 1px solid #c1cbc0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* dropdown */
+
+.Vault-Board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    max-width: 100%;
+    max-height: 400px;
+    overflow: auto;
+    gap: 10px;
+    grid-template-areas: 
+    ". . . ."
+    ". text text ."
+    ". text text ."
+    ". . . ."; 
+}
+
+.selectedEmoteDisplay {
+    grid-area: 1 / 1 / 2 / 2; 
+    font-size: 50px;
+    text-align: center;
+    padding: 5px;
+    color: #c1cbc0;
+}
+
+.selectedEmoteDisplay p {
+    font-size:20px ;
+    text-align: center;
+}
+
+.noresponse {
+    text-align: center;
+    color: #c1cbc0;
+    font-size: large;
+    grid-area: text; 
+}
+
+.searchbuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.searchbuttons button{
+    width : 50%;
+    height : 50% ;
+    letter-spacing : 2px ;
+    border-radius : 5px ;
+    border : solid 2px white;
+    background-color: #c1cbc0;
+    color: #485359;
+}
+
+.searchfieldscontainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: flex-end;
+    padding-bottom: 5%;
+}
+
+.searchfield {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #c1cbc0;
+    outline: 0;
+    font-size: 1rem;
+    color: white;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    padding-bottom: 5%;
+}
+
+.searchfield::placeholder {
+    font-size: 1rem;
+    color: #c1cbc0;
+}

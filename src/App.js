@@ -1,14 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Vault from './components/vault';
-import dummyEmotes from './components/dummyemotes'; 
 import Foundry from './components/foundry'; 
 import Forge from './components/forge';
+import './api';
+import {fetchEmotes} from './api';
+import {NotificationProvider} from './components/notificationcontext';
+import CustomNotification from './components/notifications';
+import { EmoteProvider } from './EmoteContext'
 
 
 function App() {
 
-  const [selectedContent, setSelectedContent] = useState('Emote'); // Default selected content
+  const [selectedContent, setSelectedContent] = useState('Foundry'); // Default selected content
+  const [emotes, setEmotes] = useState([]); // State to hold fetched emotess
+  const [notifications, setNotifications] = useState([]); // Initialize notifications state
+  
+
+  const addNotification = (message, type) => {
+    const newNotification = {
+      message,
+      type,
+      timestamp: new Date().getTime(),
+    };
+    setNotifications([...notifications, newNotification]);
+  };
+
+  const updateEmotes = async () => {
+    try {
+      const updatedEmotes = await fetchEmotes();
+      setEmotes(updatedEmotes);
+    } catch (error) {
+      console.error('Error updating emotes:', error);
+    }
+  };
+
+  const updateFoundryEmotes = async () => {
+    try {
+      const updatedEmotes = await fetchEmotes();
+      setEmotes(updatedEmotes);
+    } catch (error) {
+      console.error('Error updating Foundry emotes:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    // Fetch emotes when the component mounts
+    fetchEmotes()
+      .then(data => {
+        setEmotes(data); // Update the emotes state with fetched data
+      })
+      .catch(error => {
+        console.error('Error fetching emotes:', error);
+      });
+  }, []); // Run only once when the component mounts
+
 
   const handleButtonClick = (content) => {
     setSelectedContent(content);
@@ -18,48 +65,68 @@ function App() {
     if (selectedContent === 'Foundry') {
       return(
         <div className="console-box">
-          <h1>Foundry</h1>
-          <Foundry emotes={dummyEmotes} />
+          <h1>Foundry
+          <p>select an emote to display</p>
+          </h1>
+          <EmoteProvider><Foundry emotes={emotes} /></EmoteProvider>
         </div>
       );
     } else if (selectedContent === 'Forge') {
       return (
         <div class="console-box">
-          <h1>Forge</h1>
-          <Forge></Forge>
+          <h1>Welcome to the Forge!
+            <p>upload new emotes here</p>
+          </h1>
+          <Forge updateEmotes={updateEmotes} updateFoundryEmotes={updateFoundryEmotes}></Forge>
         </div>
       );
     } else if (selectedContent === 'Vault') {
       return (
         <div class="console-box">
-        <h1>Vault</h1>
-        <Vault emotes={dummyEmotes} />
+        <h1>Vault
+        <p>browse edit and delete here</p>
+        </h1>
+        
+        <Vault emotes={emotes} updateEmotes={updateEmotes} />
       </div>
       );
     }
   };
 
   return (
-    <div className="App">
-      <div class="grid-container">
-        <div class="notifications">notifications
-          <div class="sprite">allo</div>
-        </div>
+    <EmoteProvider>
+    <NotificationProvider>
+      <div className='app-container'>
+    <header className='hero'>Kinetic Language Assistant & Resource Aparatus</header>
+          <div className="App">
+            <div class="grid-container">
+              <div className='sidebar'>
+                <div class="notifications">
+                </div>
+                <CustomNotification></CustomNotification>
 
-        <div class="navigation">navigation
-          <div class="nav-buttons">
-          <button class="button" onClick={() => handleButtonClick('Foundry')}>Foundry</button>
-          <button class="button"  onClick={() => handleButtonClick('Forge')}>Forge</button>
-          <button class="button" onClick={() => handleButtonClick('Vault')}>Vault</button>
+                  <div class="navigation">
+                  <p>navigation</p>
+                    <div class="nav-buttons">
+                    <button class="button" onClick={() => handleButtonClick('Foundry')}>foundry</button>
+                    <button class="button"  onClick={() => handleButtonClick('Forge')}>forge</button>
+                    <button class="button" onClick={() => handleButtonClick('Vault')}>vault</button>
+                    </div>
+                  
+                </div>
+              </div>
+
+              <div class="console">
+              {renderConsoleContent()}
+              {/* {selectedContent === 'Forge' && <Forge addNotification={addNotification} />} */}
+              </div>
+
+            </div>
           </div>
+        <footer>&copy; Chacha. All rights reserved.</footer>
         </div>
-        
-        <div class="console">console
-        {renderConsoleContent()}
-        </div>
-
-      </div>
-    </div>
+    </NotificationProvider>
+    </EmoteProvider>
   );
 }
 

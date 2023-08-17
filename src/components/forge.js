@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { uploadImage } from '../api.js'; // Update the path
 import './forge.css';
+import { useNotification } from './notificationcontext.js';
+import EmoteCard from './emotecard.js';
 
-const Forge = () => {
+
+const Forge = ({updateEmotes, updateFoundryEmotes}) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null); // hold img url
+    const [asciiEmote, setAsciiEmote] = useState(''); 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const { addNotification } = useNotification(); 
+
+
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
+    };
+
+    const handleAsciiEmoteChange = (event) => {
+        setAsciiEmote(event.target.value); 
     };
 
     const handleTitleChange = (event) => {
@@ -21,42 +32,81 @@ const Forge = () => {
     };
 
     const handleUpload = async () => {
-        if (selectedFile) {
-            try {
-                const formData = new FormData();
-                formData.append('image', selectedFile);
-                formData.append('title', title);
-                formData.append('description', description);
-        
-                const response = await uploadImage(formData);
-                setUploadedImage(response.imageUrl);
-                } catch (error) {
-                console.error('Error uploading image:', error);
+        let formEmoteData = {
+            title: title,
+            image: selectedFile || asciiEmote,
+            description: description
         }
-    }
+        try {
+            const formEmoteData = {};
+            if (selectedFile) {
+                formEmoteData['image'] = selectedFile;
+            }
+            if (asciiEmote) {
+                formEmoteData['image'] = asciiEmote;
+            }
+            formEmoteData['title'] = title;
+            formEmoteData['description'] = description;
+
+            const response = await uploadImage(formEmoteData);
+
+            setUploadedImage(response.imageUrl);
+
+            addNotification('Emote uploaded successfully.', 'success');
+
+            //resets fields
+            setSelectedFile(null);
+            setAsciiEmote('');
+            setTitle('');
+            setDescription('');
+            //reset vault
+            updateEmotes();
+            //forces foundry to update
+            updateFoundryEmotes();
+        } catch (error) {
+        console.error('Error uploading emote:', error);
+        const errorMessage = error.response ? error.response.data.message : 'An error occurred while uploading the emote.';
+        const emoteTitle = formEmoteData.title || 'without the title';
+        const emoteImage = formEmoteData.image ? 'with image' : 'without image';
+        const emoteDescription = formEmoteData.description ? `with description "${formEmoteData.description}"` : 'without description';
+        const errorFullMessage = `Error, this don't work, ${emoteTitle} ${emoteImage} and ${emoteDescription}: ${errorMessage}`;
+        addNotification(errorFullMessage, 'fail');
+        
+        }
     };
+    
+    
+
+                
+                        // <EmoteCard className="thecard" emote= {(() => {
+                        //     switch("") {
+                        //         case title || asciiEmote || uploadedImage || description :
+                        //         return { title, image: asciiEmote || uploadedImage, description } 
+                        //         case title || asciiEmote || uploadedImage || description :
+                        //         return { title, image: asciiEmote || uploadedImage, description } 
+                        //         default:
+                        //         return null
+                        //     }
+                        //     })()} />
+        
     return (
         <div className="emote-upload-form">
+                    <div className='preview-box'>
+                        {/* <EmoteCard className="thecard" emote={title || asciiEmote || uploadedImage || description ? { title, image: asciiEmote || uploadedImage, description } : { title: "title", image: "OwO", description:"the preview" }}  /> */}
+                        <EmoteCard className="thecard" emote={{title: title || "title", image: asciiEmote || "OwO" , description: description || "the preview"}}  />
+                    </div>
 
-        <div className="image-box">
-            {uploadedImage ? (
-            <img src={uploadedImage} alt="Uploaded Emote" />
-            ) : (
-            <div className="upload-placeholder">Upload Here
-            <div className='form-inputs'></div>
-            <label className='upload-button'>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-            </label>
-            <button onClick={handleUpload}>Upload</button>
-            </div>
-            )}
-            <input type="text" placeholder="Title" value={title} onChange={handleTitleChange} />
-            <textarea placeholder="Description" value={description} onChange={handleDescriptionChange} />
-        </div>
-        
-        
+                <div className='form-inputs'>  
+                    <input type="text" placeholder="ASCII emote" value={asciiEmote} onChange={handleAsciiEmoteChange} />
+                    <input type="text" placeholder="title" value={title} onChange={handleTitleChange} />
+                    <textarea placeholder="description" value={description} onChange={handleDescriptionChange} />
+                    <button className="upButton" onClick={handleUpload}>Upload</button>
+                </div>
         </div>
     );
     };
 
 export default Forge;
+
+
+//reset form when upload is successful

@@ -1,20 +1,74 @@
 .display-area {
     text-align: center;
+    font-size: 50px;
+    letter-spacing : 2px ;
+    border-radius : 50px ;
+    border:2px dashed #c1cbc0;
+    background-color: #283c44;
+    color: #779895;
+    padding: 2%;
+    margin: 2%;
 }
 
 .emote-grid {
+    margin: 2%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-template-rows: repeat(2,1fr);
     max-width: 100%;
     max-height: 400px;
-    border: 2px solid red;
     overflow: auto;
+    gap: 10px;
+    padding-bottom: 5%;
 }
 
 .emote-button {
-    border: 2px solid white;
-    text-align: center;
-    position:relative;
+    margin: 5px;
+    position : relative;
     width: 100%;
+    height: 100%;
+    letter-spacing : 2px;
+    border: none;
+    background: #779895;
+    outline: none;
+    transition: 1s ease-in-out;
+    color: #485359;
+    border-radius: 5px;
 }
+
+.title-box{
+    height: 50%;
+    border: 8px solid white;
+    border-image-slice:27 27 27 27;
+    border-image-width:30px 30px 30px 30px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch;
+    border-image-source: 
+    url("/public/assets/fullborder.png");
+    display: grid;
+}
+
+/* .emote-button svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #c1cbc0;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+    border-radius: 5px;
+    stroke-width: 5px;
+} */
+
+
+.emote-button:hover {
+    transition: 1s ease-in-out;
+    background: #c1cbc0;
+}
+
+/* .emote-button:hover svg {
+    stroke-dashoffset: -480;
+} */

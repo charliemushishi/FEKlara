@@ -1,0 +1,51 @@
+
+.viewbackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    flex-direction: column;
+    font-family: monospace;
+    background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(to right, white 1px,#c1cbc0 1px);
+    background-size: 20px 20px;
+}
+
+.landingdescript {
+    text-align: center;
+    font-size: 200%;
+    color: #283c44;
+}
+
+.viewportbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #738c8d; 
+    padding: 20px;
+    background-color: #283c44; 
+    border-radius: 10px;
+}
+
+.viewportitle{
+    text-align: center;
+    font-size: 200%;
+    color: #c1cbc0;
+}
+
+.ebox {
+    font-size: 40px;
+    /* height: 90%; */
+    border: 8px solid white;
+    border-image-slice:27 27 27 27;
+    border-image-width:30px 30px 30px 30px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch;
+    border-image-source: 
+    url("/public/assets/fullborder.png");
+    display: flex;
+    flex-direction: column;
+    color: #c1cbc0;
+    padding: 10px;
+    margin: 10px; 
+    text-align: center;
+}

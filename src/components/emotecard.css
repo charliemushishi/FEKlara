@@ -1,8 +1,33 @@
-.emote-card {
-    border: 2px solid white;
+.card-back {
+    margin: 5px;
     text-align: center;
     position:relative;
-    width: 100%;
+    letter-spacing : 2px ;
+    border-radius : 5px ;
+    background-color: #c1cbc0;
+    color: #485359;
+    padding: 5px;
 }
 
+.emote-card{
+    height: 90%;
+    border: 8px solid white;
+    border-image-slice:27 27 27 27;
+    border-image-width:30px 30px 30px 30px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch;
+    border-image-source: 
+    url("/public/assets/fullborder.png");
+    display: grid;
+    word-break: break-word;
+    
+}
+
+.image .description .title {
+    
+    overflow: hidden;
+    font-size: 75%;
+    text-align: center;
+    padding: 5%;
+}
 
